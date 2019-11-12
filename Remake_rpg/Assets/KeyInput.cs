@@ -46,7 +46,40 @@ public class KeyInput : MonoBehaviour
     {
         get
         {
-            return Input.GetMouseButtonDown(0);
+            return Input.GetMouseButtonUp(0)&& !isDrawing;
+        }
+    }
+    bool isDrawing = false;
+    float L_MouseBtnClickTime = 0;
+    [SerializeField] float max_L_MouseBtnClickTime;
+
+    public bool input_Drawing
+    {
+        get
+        {
+            return Input.GetMouseButton(0) && CheckKey(Drawing_SubKeyCodes);
+        }
+    }
+    private KeyCode[] Drawing_SubKeyCodes = { KeyCode.LeftShift, KeyCode.RightShift };
+    private void Update()
+    {
+        //L_MouseBtnClick();
+    }
+
+    private void L_MouseBtnClick()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            L_MouseBtnClickTime += Time.deltaTime;
+            if(L_MouseBtnClickTime > max_L_MouseBtnClickTime)
+            {
+                isDrawing = true;
+            }
+        }
+        else
+        {
+            L_MouseBtnClickTime = 0;
+            isDrawing = false;
         }
     }
     /// <summary>
