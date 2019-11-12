@@ -1,0 +1,88 @@
+@startuml
+
+package Player{
+    class Player.CharaBase{
+        - int hp
+        + int maxHP
+        + enum charaKind
+
+        + void OnDamage()
+
+
+    }
+    class Player.VisualBase{
+        + List charaImage
+        + bool  flag_AutoChangeWalkingImage
+        - float d_movement
+        - Vector2 current_position
+
+        - void AutoChangeWalkingImage()
+
+    }
+    class Player.PlayerMove{
+        + KeyInput keyInput
+        + RigidBody2D rb 
+        + float charaSpeed
+        + float charaJumpSpeed
+        - keyInputMove()
+    }
+    class Player.PlayerAttack{
+        
+    }
+}
+Enemy.EnemyBase "Attack()"->"OnDamage()" Player.CharaBase : Damage
+
+package Enemy{
+    class EnemyBase{
+        + int attackPower
+        - void OnTriggerEnter()
+        - void Attack()
+    }
+    class Enemy.CharaBase{
+        - int hp
+        + int maxHP
+        + enum charaKind
+
+        + void OnDamage()
+
+
+    }
+    class Enemy.VisualBase{
+        + List charaImage
+        + bool  flag_AutoChangeWalkingImage
+        - float d_movement
+        - Vector2 current_position
+
+        - void AutoChangeWalkingImage()
+
+    }
+    class Enemy.Slim{
+        + float moveSpeed
+
+        
+    }
+}
+
+package GameManager{
+    class GameRunner{
+        + bool isUtageMode
+        + dictionary enemys
+        
+    }
+    class EventManager{
+        + List EventList
+
+    }
+    class Utage{
+        
+    }
+    class CameraManager{
+        + GameObject mainCamera
+        + GameRunner GR
+        - void ChasePlayer()
+    }
+}
+
+
+
+@enduml
