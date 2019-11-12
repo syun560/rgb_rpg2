@@ -10,7 +10,11 @@ using UnityEngine;
 public class VisualBase : MonoBehaviour
 {
     [SerializeField] List<Sprite> charaWalkingImage;
-    private int charaWalkingImageIndex=0;
+    private int charaWalkingImageIndex = 0;
+    [SerializeField] List<Sprite> charaAttackingImage;
+    private int charaAttackingImageIndex = -1;//-1の時にはAttackingじゃないとき
+    private float attackingTime = 0;
+    [SerializeField] float maxAttackingTime;
     public bool flag_AutoChangeWalkingImage = true;
     public float Max_d_movement;//変更閾値
     [SerializeField] SpriteRenderer SR;
@@ -26,8 +30,11 @@ public class VisualBase : MonoBehaviour
     void Update()
     {
         if (flag_AutoChangeWalkingImage) AutoChangeWalkingImage();//
-
+        if (charaAttackingImageIndex != -1) ChangeAttackingImage();
     }
+    /// <summary>
+    /// 移動量に対してcharaWalkingImageの画像を順番にキャラクターに適用する
+    /// </summary>
     private void AutoChangeWalkingImage()
     {
         d_movement += Vector2.Distance(transform.position, current_position);//移動量を保存
@@ -39,5 +46,47 @@ public class VisualBase : MonoBehaviour
             if (charaWalkingImageIndex == charaWalkingImage.Count) charaWalkingImageIndex = 0;
             SR.sprite = charaWalkingImage[charaWalkingImageIndex];
         }
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public void StartAttackingMotion()
+    {
+        charaAttackingImageIndex = 0;
+        flag_AutoChangeWalkingImage = false;
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    private void ChangeAttackingImage()
+    {
+        attackingTime += Time.deltaTime;
+        if (attackingTime > maxAttackingTime)
+        {
+            attackingTime = 0;
+            if (charaAttackingImageIndex == charaWalkingImage.Count)
+            {
+                charaAttackingImageIndex = -1;
+                flag_AutoChangeWalkingImage = true;
+            }
+            else
+            {
+                SR.sprite = charaAttackingImage[charaAttackingImageIndex];
+                ++charaAttackingImageIndex;
+            }
+        }
+    }
+    public void SetCharaSprite(Sprite s)
+    {
+        SR.sprite = s;
+    }
+    public void SetCharaWalkinImage(List<Sprite> SpriteList)
+    {
+        charaWalkingImage = SpriteList;
+        SR.sprite = charaWalkingImage[charaWalkingImageIndex];
+    }
+    public void SetCharaAttackingImage(List<Sprite> SpriteList)
+    {
+        charaAttackingImage = SpriteList;
     }
 }

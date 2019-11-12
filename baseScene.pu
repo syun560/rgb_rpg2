@@ -27,7 +27,11 @@ package Player{
         - keyInputMove()
     }
     class Player.PlayerAttack{
-        
+        + int attackPower
+        - float attackDelayTime
+        + float maxAttackDelayTime
+        - OnCollisionEnter2D()
+        - OnCollisionExit2D()
     }
 }
 Enemy.EnemyBase "Attack()"->"OnDamage()" Player.CharaBase : Damage
@@ -35,7 +39,8 @@ Enemy.EnemyBase "Attack()"->"OnDamage()" Player.CharaBase : Damage
 package Enemy{
     class EnemyBase{
         + int attackPower
-        - void OnTriggerEnter()
+        - void OnCollisionEnter2D()
+        - void OnCollisionExit2D()
         - void Attack()
     }
     class Enemy.CharaBase{

@@ -9,11 +9,20 @@ using UnityEngine;
 
 public class CharaBase : MonoBehaviour
 {
-    int hp;
+    public int hp
+    {
+        get;
+        private set;
+    }
     [SerializeField] int maxHP;
     [SerializeField] CharaKind charaKind;
     private void Start()
     {
         hp = maxHP;
+    }
+    public void OnDamage(int attackPower)
+    {
+        hp -= attackPower;
+        if(hp <= 0)Destroy(gameObject);
     }
 }
