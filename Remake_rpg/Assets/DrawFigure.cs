@@ -2,6 +2,8 @@
  * 製作者:土川(AE19051)
  * 製作日:2019/11/13
  * 図形描画処理
+ * 
+ * 削除予定
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -62,9 +64,9 @@ public class DrawFigure : MonoBehaviour
             for(int i = 1;i<Points.Count - 1; ++i)
             {
                 Vector2 vec0 = Points[i - 1] - Points[i];
-                Vector2 vec1 = Points[i] - Points[i + 1];
+                Vector2 vec1 = Points[i + 1] - Points[i];
                 float angle = Vector2.Angle(vec0, vec1);//に直線間の角度を計算
-                if(angle > maxAngle)
+                if(angle < maxAngle)
                 {
                     pointedPlace.Add(Points[i]);
                 }
@@ -83,6 +85,7 @@ public class DrawFigure : MonoBehaviour
             {
                 //円
                 Debug.Log("円");
+                Debug.Log(pointedPlace.Count);
             }
 
         }

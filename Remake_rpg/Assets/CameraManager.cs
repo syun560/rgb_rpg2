@@ -13,18 +13,30 @@ public class CameraManager : MonoBehaviour
     [SerializeField] GameRunner GR;
     [SerializeField] GameObject Player;
     private Vector2 currentPlayerPosition;
+    private float currentTouchingGroundPositionY;
     private void Start()
     {
         currentPlayerPosition = Player.transform.position;
     }
     private void Update()
     {
-        ChasePlayer();
+        ChasePlayerX();
     }
-    private void ChasePlayer()
+    private void ChasePlayerX()
     {
         float diff = Player.transform.position.x - currentPlayerPosition.x;
         currentPlayerPosition = Player.transform.position;
         mainCamera.transform.position += new Vector3(diff,0,0);
     }
+    /// <summary>
+    /// プレイヤーのいるステージの高さによってカメラのY座標を変更
+    /// </summary>
+    public void ChacePlayerY(float touchingGroundY)
+    {
+        if(currentTouchingGroundPositionY != touchingGroundY)
+        {
+
+        }
+    }
+
 }

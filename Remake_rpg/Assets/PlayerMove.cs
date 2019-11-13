@@ -14,6 +14,7 @@ public class PlayerMove : MonoBehaviour
     private bool isTouchingTheGround = false;
     public float charaSpeed;
     public float jumpSpeed;
+    public float playerTouchingGroundPositionY;//プレイヤーが接している床のY座標。
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +45,11 @@ public class PlayerMove : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Stage") isTouchingTheGround = true;
+        if (collision.gameObject.tag == "Stage")
+        {
+            isTouchingTheGround = true;
+            playerTouchingGroundPositionY = collision.gameObject.transform.position.y;
+        }
 
     }
     private void OnCollisionExit2D(Collision2D collision)

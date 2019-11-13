@@ -20,13 +20,6 @@ public class VisualBase : MonoBehaviour
     [SerializeField] SpriteRenderer SR;
     private float d_movement;//移動量
     private Vector2 current_position;//1Update前の位置を保存
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (flag_AutoChangeWalkingImage) AutoChangeWalkingImage();//
@@ -80,6 +73,10 @@ public class VisualBase : MonoBehaviour
     {
         SR.sprite = s;
     }
+    /// <summary>
+    /// キャラクターの歩行時のスプライトを変更
+    /// </summary>
+    /// <param name="SpriteList">変更するスプライト</param>
     public void SetCharaWalkinImage(List<Sprite> SpriteList)
     {
         charaWalkingImage = SpriteList;
