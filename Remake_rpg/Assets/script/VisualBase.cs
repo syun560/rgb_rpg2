@@ -14,7 +14,7 @@ public class VisualBase : MonoBehaviour
     [SerializeField] List<Sprite> charaAttackingImage;
     private int charaAttackingImageIndex = -1;//-1の時にはAttackingじゃないとき
     private float attackingTime = 0;
-    [SerializeField] float maxAttackingTime;
+    [SerializeField] float maxAttackingTime;//攻撃時のスプライト変更時間閾値
     public bool flag_AutoChangeWalkingImage = true;
     public float Max_d_movement;//変更閾値
     [SerializeField] SpriteRenderer SR;
@@ -41,7 +41,7 @@ public class VisualBase : MonoBehaviour
         }
     }
     /// <summary>
-    /// 
+    /// 攻撃のモーション開始をしたいときに呼び出す
     /// </summary>
     public void StartAttackingMotion()
     {
@@ -49,7 +49,7 @@ public class VisualBase : MonoBehaviour
         flag_AutoChangeWalkingImage = false;
     }
     /// <summary>
-    /// 
+    /// 一定時間(maxAttackingTime)ごとにスプライトを変更して攻撃のモーションをする
     /// </summary>
     private void ChangeAttackingImage()
     {
@@ -69,6 +69,10 @@ public class VisualBase : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// (非推奨)キャラクターのスプライトを直接指定(基本使用しないと)
+    /// </summary>
+    /// <param name="s"></param>
     public void SetCharaSprite(Sprite s)
     {
         SR.sprite = s;
@@ -82,6 +86,10 @@ public class VisualBase : MonoBehaviour
         charaWalkingImage = SpriteList;
         SR.sprite = charaWalkingImage[charaWalkingImageIndex];
     }
+    /// <summary>
+    /// キャラクターの攻撃時のスプライトを変更
+    /// </summary>
+    /// <param name="SpriteList">変更するスプライト</param>
     public void SetCharaAttackingImage(List<Sprite> SpriteList)
     {
         charaAttackingImage = SpriteList;

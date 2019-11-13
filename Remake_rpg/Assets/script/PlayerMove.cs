@@ -43,6 +43,7 @@ public class PlayerMove : MonoBehaviour
             rb.AddForce(new Vector2(0, jumpSpeed));
         }
     }
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Stage")
@@ -51,6 +52,14 @@ public class PlayerMove : MonoBehaviour
             playerTouchingGroundPositionY = collision.gameObject.transform.position.y;
         }
 
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Stage")
+        {
+            isTouchingTheGround = true;
+            playerTouchingGroundPositionY = collision.gameObject.transform.position.y;
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {

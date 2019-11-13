@@ -24,5 +24,6 @@ public class GameRunner : MonoBehaviour
 /// </summary>
 enum CharaKind
 {
-    Player,Spider
+    Player,Spider,Wolf
+
 }
