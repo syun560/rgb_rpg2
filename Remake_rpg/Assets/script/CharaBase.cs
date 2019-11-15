@@ -16,6 +16,7 @@ public class CharaBase : MonoBehaviour
     }
     [SerializeField] int maxHP;
     [SerializeField] CharaKind charaKind;
+    [SerializeField] VisualBase VB;
     private void Start()
     {
         hp = maxHP;
@@ -23,6 +24,7 @@ public class CharaBase : MonoBehaviour
     public void OnDamage(int attackPower)
     {
         hp -= attackPower;
+        VB.StartDamagedMotion();
         if(hp <= 0)Destroy(gameObject);
     }
 }

@@ -20,10 +20,15 @@ public class VisualBase : MonoBehaviour
     [SerializeField] SpriteRenderer SR;
     private float d_movement;//移動量
     private Vector2 current_position;//1Update前の位置を保存
+    [SerializeField] int damagedEffectMaxFlashNum;
+    private int damagedEffectFlashNum = -1;
+    [SerializeField] float maxFlashTime;
+    private float flashTime = 0;
     void Update()
     {
         if (flag_AutoChangeWalkingImage) AutoChangeWalkingImage();//
         if (charaAttackingImageIndex != -1) ChangeAttackingImage();
+        if (damagedEffectFlashNum != -1) DamagedFlash();
     }
     /// <summary>
     /// 移動量に対してcharaWalkingImageの画像を順番にキャラクターに適用する
@@ -47,6 +52,38 @@ public class VisualBase : MonoBehaviour
     {
         charaAttackingImageIndex = 0;
         flag_AutoChangeWalkingImage = false;
+    }
+    /// <summary>
+    /// ダメージを受けたときのエフェクトを開始する
+    /// </summary>
+    public void StartDamagedMotion()
+    {
+        damagedEffectFlashNum = 0;
+    }
+
+    private void DamagedFlash()
+    {
+        flashTime += Time.deltaTime;
+        if (flashTime > maxFlashTime)
+        {
+            flashTime = 0;
+            if (damagedEffectFlashNum % 2 == 0)
+            {
+                //赤くする
+                SR.color = Color.red;
+            }
+            else
+            {
+                //普通にする
+                SR.color = Color.white;
+            }
+            damagedEffectFlashNum++;
+            if (damagedEffectFlashNum == damagedEffectMaxFlashNum)
+            {
+                SR.color = Color.white;
+                damagedEffectFlashNum = -1;
+            }
+        }
     }
     /// <summary>
     /// 一定時間(maxAttackingTime)ごとにスプライトを変更して攻撃のモーションをする
