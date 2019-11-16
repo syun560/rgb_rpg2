@@ -6,9 +6,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameRunner : MonoBehaviour
 {
+    float time = 0;
+    public bool isGameOver = false;
+    [SerializeField] GameObject gameOverText;
     /// <summary>
     /// シナリオモードであるかどうか
     /// </summary>
@@ -16,6 +20,19 @@ public class GameRunner : MonoBehaviour
     {
         get;
         private set;
+    }
+    public void StartGameOver()
+    {
+        isGameOver = true;
+    }
+    private void Update()
+    {
+        if (isGameOver)
+        {
+            time += Time.deltaTime;
+            gameOverText.SetActive(true);
+            if (time > 3) SceneManager.LoadScene("title");
+        }
     }
 }
 

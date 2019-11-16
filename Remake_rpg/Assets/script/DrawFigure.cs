@@ -29,6 +29,9 @@ public class DrawFigure : MonoBehaviour
     ///</summary>
     [SerializeField] bool DebugFlag = false;
     bool isDrawing = false;
+    [SerializeField] GameObject maru_pref;
+    [SerializeField] GameObject shikaku_pref;
+    [SerializeField] GameObject sankaku_pref;
     private void Start()
     {
         Points = new List<Vector2>();
@@ -90,16 +93,19 @@ public class DrawFigure : MonoBehaviour
             {
                 //サン脚気い
                 Debug.Log("三角形");
+                GenerateSankaku(pointedPlace);
             }
             if (pointedPlace.Count == 4)
             {
                 //四角形
                 Debug.Log("四角形");
+                GenerateShikaku(pointedPlace);
             }
             if (pointedPlace.Count > 4 || pointedPlace.Count < 3)
             {
                 //円
                 Debug.Log("円");
+                GenerateMaru(pointedPlace);
             }
             Debug.Log(Points.Count);
         }
@@ -125,7 +131,9 @@ public class DrawFigure : MonoBehaviour
             Vector3 temp = Camera.main.ScreenToWorldPoint(pPlaces[i]);
             pointedPlaceDebug[i].transform.position = temp;
         }
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPaused = true;
+#endif
     }
 
     //pointedPlace同士があまりにも近くなるようなら削除する
@@ -152,4 +160,26 @@ public class DrawFigure : MonoBehaviour
         foreach(Vector2 p in points) rtn += p;
         return rtn/points.Count;
     }
+
+    private void GenerateMaru(List<Vector2> pointedPlace)
+    {
+        var maru = Instantiate(maru_pref);
+        maru.transform.position = Camera.main.ScreenToWorldPoint(CalcCenterPosition(pointedPlace));
+        maru.transform.position = new Vector3(maru.transform.position.x, maru.transform.position.y, 0);
+    }
+
+    private void GenerateShikaku(List<Vector2> pointedPlace)
+    {
+        var maru = Instantiate(shikaku_pref);
+        maru.transform.position = Camera.main.ScreenToWorldPoint(CalcCenterPosition(pointedPlace));
+        maru.transform.position = new Vector3(maru.transform.position.x, maru.transform.position.y, 0);
+    }
+
+    private void GenerateSankaku(List<Vector2> pointedPlace)
+    {
+        var maru = Instantiate(sankaku_pref);
+        maru.transform.position = Camera.main.ScreenToWorldPoint(CalcCenterPosition(pointedPlace));
+        maru.transform.position = new Vector3(maru.transform.position.x, maru.transform.position.y, 0);
+    }
+
 }

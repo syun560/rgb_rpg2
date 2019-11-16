@@ -15,6 +15,7 @@ public class PlayerAttack : MonoBehaviour
     private string touchingEnemyName;
     [SerializeField] int attackPower;
     [SerializeField] float maxAttackDelayTime;
+    [SerializeField] GameRunner GR;
     private float attackDelayTime = 0;
     private bool isAttacking = false;
     private void Update()
@@ -48,6 +49,18 @@ public class PlayerAttack : MonoBehaviour
             touchingEnemyCharaBase = collision.gameObject.GetComponent<CharaBase>();
             touchingEnemyName = collision.gameObject.name;
         }
+        
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Gimmick")
+        {
+            if (keyInput.input_LeftMouseDown)
+            {
+                var KS = collision.gameObject.GetComponent<KaitenSwitch>();
+                KS.SetOnOff();
+            }
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -56,6 +69,10 @@ public class PlayerAttack : MonoBehaviour
             touchingEnemyName = null;
             touchingEnemyCharaBase = null;
         }
+    }
+    private void OnDestroy()
+    {
+        GR.StartGameOver();
     }
 
 }

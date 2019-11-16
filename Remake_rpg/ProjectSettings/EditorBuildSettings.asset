@@ -8,7 +8,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/baseScene.unity
     guid: 8cd7fb4fae5925d419ca46188720b0bb
+  - enabled: 1
+    path: Assets/title.unity
+    guid: a0b76e82e1e364c489ecd217d59b4f54
+  - enabled: 1
+    path: Assets/Scenes/Taikenbann/Taikenban0.unity
+    guid: 3c3f7d1ce1a270a4b96622d704dd50b6
+  - enabled: 1
+    path: Assets/Scenes/Taikenbann/Taikenban1.unity
+    guid: 1c4c03d2c018b5546ad686f660a342bf
+  - enabled: 1
+    path: Assets/Taikenban2.unity
+    guid: 4ff5289a624e1f243812d22e6c8fdbd2
   m_configObjects: {}

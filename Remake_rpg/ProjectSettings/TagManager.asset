@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Stage
   - Enemy
+  - Figure
+  - Gimmick
   layers:
   - Default
   - TransparentFX

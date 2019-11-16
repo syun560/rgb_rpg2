@@ -37,7 +37,7 @@ public class PlayerVisual : MonoBehaviour
         if (Input.GetKey(KeyCode.G)) SetAdaptedColorImage(PlayerAttackColor.G);
         if (Input.GetKey(KeyCode.B)) SetAdaptedColorImage(PlayerAttackColor.B);
     }
-    private void SetAdaptedColorImage(PlayerAttackColor PAC)
+    public void SetAdaptedColorImage(PlayerAttackColor PAC)
     {
         VB.SetCharaWalkinImage(walking_RGB[PAC]);
         VB.SetCharaAttackingImage(attacking_RGB[PAC]);
