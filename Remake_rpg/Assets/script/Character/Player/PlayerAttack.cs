@@ -12,7 +12,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] VisualBase VB;
     [SerializeField] KeyInput keyInput;
     private CharaBase touchingEnemyCharaBase;
-    private Collision2D touchingEnemyCollison;
+    private string touchingEnemyName;
     [SerializeField] int attackPower;
     [SerializeField] float maxAttackDelayTime;
     private float attackDelayTime = 0;
@@ -33,7 +33,7 @@ public class PlayerAttack : MonoBehaviour
         attackDelayTime += Time.deltaTime;
         if (maxAttackDelayTime < attackDelayTime)
         {
-            if(touchingEnemyCharaBase != null)
+            if(touchingEnemyName != null)
             {
                 touchingEnemyCharaBase.OnDamage(attackPower);
             }
@@ -46,14 +46,14 @@ public class PlayerAttack : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         {
             touchingEnemyCharaBase = collision.gameObject.GetComponent<CharaBase>();
-            touchingEnemyCollison = collision;
+            touchingEnemyName = collision.gameObject.name;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision == touchingEnemyCollison)
+        if(collision.gameObject.name == touchingEnemyName)
         {
-            touchingEnemyCollison = null;
+            touchingEnemyName = null;
             touchingEnemyCharaBase = null;
         }
     }

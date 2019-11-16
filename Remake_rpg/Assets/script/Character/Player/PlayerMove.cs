@@ -40,7 +40,7 @@ public class PlayerMove : MonoBehaviour
         }
         if (keyInput.input_Jump&&isTouchingTheGround)
         {
-            rb.AddForce(new Vector2(0, jumpSpeed));
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
         }
     }
     
